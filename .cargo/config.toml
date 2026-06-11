@@ -1,15 +1,14 @@
 [target.xtensa-esp32s3-none-elf]
-runner = "probe-rs run --chip=esp32s3 --preverify --always-print-stacktrace --no-location --catch-hardfault"
+runner = "espflash flash --monitor --baud=2000000 --partition-table=partitions.csv --flash-size 4mb"
+linker = "xtensa-esp32s3-elf-gcc"
 
 [env]
-DEFMT_LOG="info"
+CC_xtensa_esp32s3_none_elf = "xtensa-esp32s3-elf-gcc"
+CFLAGS_xtensa_esp32s3_none_elf = "-mlongcalls -mtext-section-literals"
 
 [build]
-rustflags = [
-  "-C", "link-arg=-nostartfiles",
-]
-
 target = "xtensa-esp32s3-none-elf"
+rustflags = ["-C", "link-arg=-nostartfiles"]
 
 [unstable]
 build-std = ["core"]

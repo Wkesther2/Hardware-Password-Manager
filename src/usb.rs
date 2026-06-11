@@ -1,5 +1,4 @@
 use core::sync::atomic::{AtomicBool, Ordering};
-use defmt::info;
 use embassy_usb::class::hid::{HidBootProtocol, HidReaderWriter, HidSubclass, HidWriter, State};
 use embassy_usb::driver::EndpointError;
 use embassy_usb::{Builder, Handler, UsbDevice};
@@ -8,6 +7,7 @@ use esp_hal::otg_fs::{
     asynch::{Config, Driver},
 };
 use esp_hal::peripherals::{GPIO19, GPIO20, USB0};
+use log::{error, info, warn};
 use static_cell::StaticCell;
 use usbd_hid::descriptor::{KeyboardReport, SerializedDescriptor};
 
